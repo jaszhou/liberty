@@ -124,6 +124,12 @@ podTemplate(label: 'jnlp-slave', // See 1
                 sh 'helm version'
             }
         }
+      
+      stage('Deploy') {
+        echo "6. Deploy Stage"
+        //sh 'kubectl apply -f k8s.yaml'
+     }
+      
         
   }
 }
