@@ -1,7 +1,8 @@
 
 FROM websphere-liberty:latest
 
-ADD * /
+ADD *.jar /
+ADD config.properties /
 ADD ssl /ssl
 
 
