@@ -77,7 +77,7 @@ podTemplate(label: 'jnlp-slave', // See 1
         
         stage('Build Docker image') {
       
-         git 'https://github.com/jaszhou/liberty.git'
+         //git 'https://github.com/jaszhou/liberty.git'
          container('docker') {
          //sh "docker build -t ${image} ."
          sh 'docker version'
