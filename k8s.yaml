@@ -1,0 +1,47 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    k8s-app: datapower
+  managedFields:
+  - apiVersion: v1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:metadata:
+        f:labels:
+          .: {}
+          f:k8s-app: {}
+      f:spec:
+        f:externalTrafficPolicy: {}
+        f:ports:
+          .: {}
+          k:{"port":9444,"protocol":"TCP"}:
+            .: {}
+            f:name: {}
+            f:port: {}
+            f:protocol: {}
+            f:targetPort: {}
+        f:selector:
+          .: {}
+          f:k8s-app: {}
+        f:sessionAffinity: {}
+        f:type: {}
+    manager: dashboard
+    operation: Update
+    time: "2020-08-27T03:35:58Z"
+  name: datapower
+  selfLink: /api/v1/namespaces/default/services/datapower
+spec:
+  externalTrafficPolicy: Cluster
+  ports:
+  - name: tcp-9444-9444-9v8q4
+    port: 9444
+    protocol: TCP
+    targetPort: 9444
+  selector:
+    k8s-app: datapower
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
