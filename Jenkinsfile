@@ -80,7 +80,8 @@ podTemplate(label: 'jnlp-slave', // See 1
          git 'https://github.com/jaszhou/liberty.git'
          container('docker') {
          //sh "docker build -t ${image} ."
-         sh "docker version"
+         sh 'docker version'
+         sh 'ls -ltr'
          
          hub = "hub.docker.com"
                 // set project name
