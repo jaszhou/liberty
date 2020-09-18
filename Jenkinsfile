@@ -16,7 +16,8 @@ podTemplate(label: 'jnlp-slave', // See 1
   containers: [
     containerTemplate(
       name: 'jnlp',
-      image: 'jenkinsci/jnlp-slave:3.10-1-alpine',
+      //image: 'jenkinsci/jnlp-slave:3.10-1-alpine',        
+      image: 'jenkins/jnlp-slave:3.35-5-alpine',
       args: '${computer.jnlpmac} ${computer.name}'
     ),
     containerTemplate(
@@ -120,10 +121,10 @@ podTemplate(label: 'jnlp-slave', // See 1
          }
     }
     
-          /*   stage('Deploy') {
+            stage('Deploy') {
                 echo "6. Deploy Stage"
                 sh 'kubectl apply -f k8s.yaml'
-             } */
+            }
         
   }
 }
