@@ -87,14 +87,14 @@ podTemplate(label: 'jnlp-slave', // See 1
                 project_name = "jaszhou"
                 echo "build Docker image"
                 
-                
+                docker.withRegistry("https://hub.docker.com/", "DockerHub") {
                     
                     def customImage = docker.build("${hub}/${project_name}/liberty:latest}")
                     echo "推送镜像"
                     customImage.push()
                     //echo "删除镜像"
                     //sh "docker rmi ${hub}/${project_name}/${pom.artifactId}:${pom.version}" 
-                
+                }
       }
     }
         
