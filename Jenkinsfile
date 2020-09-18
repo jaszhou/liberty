@@ -115,21 +115,15 @@ podTemplate(label: 'jnlp-slave', // See 1
                     //echo "删除镜像"
                     //sh "docker rmi ${hub}/${project_name}/${pom.artifactId}:${pom.version}" 
                 }
+             
+             stage('Deploy') {
+                echo "6. Deploy Stage"
+                sh 'kubectl apply -f k8s.yaml'
+             }
          }
     }
     
-          stage('Helm阶段'){
-            container('helm-kubectl') {
-                echo "4、开始检测Kubectl环境，测试执行Helm部署，与执行部署"
-                sh 'helm version'
-            }
-        }
-      
-      stage('Deploy') {
-        echo "6. Deploy Stage"
-        //sh 'kubectl apply -f k8s.yaml'
-     }
-      
+         
         
   }
 }
