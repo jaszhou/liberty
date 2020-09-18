@@ -14,18 +14,14 @@ def helmDeploy(Map args) {
 
 podTemplate(label: 'jnlp-slave', // See 1
   containers: [
+      /*
     containerTemplate(
       name: 'jnlp',
       //image: 'jenkinsci/jnlp-slave:3.10-1-alpine',        
       image: 'jenkins/jnlp-slave:3.35-5-alpine',
       args: '${computer.jnlpmac} ${computer.name}'
-    ),
-    containerTemplate(
-      name: 'alpine',
-      image: 'twistian/alpine:latest',
-      command: 'cat',
-      ttyEnabled: true
-    ),
+    ), */
+   
        containerTemplate(
       name: 'docker',
       image: 'docker:1.11',
