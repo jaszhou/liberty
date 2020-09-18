@@ -1,3 +1,17 @@
+// 执行Helm的方法
+def helmDeploy(Map args) {
+    if(args.init){
+        println "Helm 初始化"
+        sh "helm init --client-only --stable-repo-url ${args.url}"
+    } else if (args.dry_run) {
+        println "尝试 Helm 部署，验证是否能正常部署"
+        sh "helm upgrade --install ${args.name} --namespace ${args.namespace} ${args.values} --set ${args.image},${args.tag} stable/${args.template} --dry-run --debug"
+    } else {
+        println "正式 Helm 部署"
+        sh "helm upgrade --install ${args.name} --namespace ${args.namespace} ${args.values} --set ${args.image},${args.tag} stable/${args.template}"
+    }
+}
+
 podTemplate(label: 'jnlp-slave', // See 1
   containers: [
     containerTemplate(
@@ -24,7 +38,12 @@ podTemplate(label: 'jnlp-slave', // See 1
       args: 'infinity',
       ttyEnabled: true
     ),
-   
+       containerTemplate(
+      name: 'helm-kubectl',
+      image: 'registry.cn-shanghai.aliyuncs.com/mydlq/helm-kubectl:2.13.1',
+      command: 'cat',
+      ttyEnabled: true
+    ),
   ],
   volumes: [ // See 2
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'), // See 3
@@ -96,8 +115,15 @@ podTemplate(label: 'jnlp-slave', // See 1
                     //echo "删除镜像"
                     //sh "docker rmi ${hub}/${project_name}/${pom.artifactId}:${pom.version}" 
                 }
-      }
+         }
     }
+    
+          stage('Helm阶段'){
+            container('helm-kubectl') {
+                echo "4、开始检测Kubectl环境，测试执行Helm部署，与执行部署"
+                sh 'helm version'
+            }
+        }
         
   }
 }
