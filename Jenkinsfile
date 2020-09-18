@@ -89,7 +89,7 @@ podTemplate(label: 'jnlp-slave', // See 1
                 
                 docker.withRegistry("https://hub.docker.com/", "DockerHub") {
                     
-                    def customImage = docker.build("${hub}/${project_name}/liberty:latest}")
+                    def customImage = docker.build("liberty:latest")
                     echo "推送镜像"
                     customImage.push()
                     //echo "删除镜像"
