@@ -121,7 +121,7 @@ podTemplate(label: 'jnlp-slave', // See 1
                 echo "6. Deploy Stage"
                 //sh 'kubectl apply -f k8s.yaml'
                 sh 'ls -l'
-                sh 'which kubectl'
+               // sh 'which kubectl'
             }
         
   }
