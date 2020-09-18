@@ -116,14 +116,14 @@ podTemplate(label: 'jnlp-slave', // See 1
                     //sh "docker rmi ${hub}/${project_name}/${pom.artifactId}:${pom.version}" 
                 }
              
-             stage('Deploy') {
-                echo "6. Deploy Stage"
-                sh 'kubectl apply -f k8s.yaml'
-             }
+         
          }
     }
     
-         
+          /*   stage('Deploy') {
+                echo "6. Deploy Stage"
+                sh 'kubectl apply -f k8s.yaml'
+             } */
         
   }
 }
