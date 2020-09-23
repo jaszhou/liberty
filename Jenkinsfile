@@ -29,6 +29,12 @@ podTemplate(label: 'jnlp-slave', // See 1
       ttyEnabled: true
     ),
        containerTemplate(
+      name: 'mongoclient',
+      image: 'mongoclient/mongoclient:4.0.0',
+      command: 'cat',
+      ttyEnabled: true
+    ),
+       containerTemplate(
       name: 'maven',
       image: 'maven:3.6.3-jdk-8',
       command: 'sleep',
@@ -91,6 +97,20 @@ podTemplate(label: 'jnlp-slave', // See 1
             }
         }
         
+         stage('Mongo Stage'){
+          //git 'https://github.com/jaszhou/Watson.git'
+            container('mongoclient') {
+            echo "Mongo Backup Stage"
+            //sleep(10000000)
+            stage('Backup Mongo') {
+                    //sh 'mvn -B clean install'
+                    sh 'mongoclient/mongoclient'
+                    
+                }
+                
+            }
+        }
+      
         stage('Build Docker image') {
       
          git 'https://github.com/jaszhou/liberty.git'
@@ -104,6 +124,7 @@ podTemplate(label: 'jnlp-slave', // See 1
                 project_name = "jaszhou"
                 echo "build Docker image"
                 
+             /*
                 docker.withRegistry("https://registry.hub.docker.com", "DockerHub") {
                     
                     def customImage = docker.build("jaszhou/liberty:latest")
@@ -112,7 +133,7 @@ podTemplate(label: 'jnlp-slave', // See 1
                     //echo "删除镜像"
                     //sh "docker rmi ${hub}/${project_name}/${pom.artifactId}:${pom.version}" 
                 }
-             
+             */
          
          }
     }
