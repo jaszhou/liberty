@@ -75,9 +75,10 @@ podTemplate(label: 'jnlp-slave', // See 1
         
          stage('Mongo Stage'){
           //git 'https://github.com/jaszhou/Watson.git'
-          // docker run -d -p 3000:3000 mongoclient/mongoclient
-              sh 'docker run --rm -d --name mongo mongo:latest mongo'
-             
+             container('docker') {
+              // docker run -d -p 3000:3000 mongoclient/mongoclient
+                 sh 'docker run --rm -d --name mongo mongo:latest mongo'
+             }
         }
       
         stage('Build Docker image') {
