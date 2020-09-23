@@ -75,8 +75,11 @@ podTemplate(label: 'jnlp-slave', // See 1
         
          stage('Mongo Stage'){
           //git 'https://github.com/jaszhou/Watson.git'
+            checkout scm
             container('mongoclient') {
             echo "Mongo Backup Stage"
+            sh 'hostname'
+                
             //sleep(10000000)
             stage('Backup Mongo') {
                     //sh 'mvn -B clean install'
