@@ -41,12 +41,7 @@ podTemplate(label: 'jnlp-slave', // See 1
       args: 'infinity',
       ttyEnabled: true
     ),
-       containerTemplate(
-      name: 'helm-kubectl',
-      image: 'registry.cn-shanghai.aliyuncs.com/mydlq/helm-kubectl:2.13.1',
-      command: 'cat',
-      ttyEnabled: true
-    ),
+   
   ],
   volumes: [ // See 2
     hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock'), // See 3
@@ -77,7 +72,8 @@ podTemplate(label: 'jnlp-slave', // See 1
           //git 'https://github.com/jaszhou/Watson.git'
              container('docker') {
               // docker run -d -p 3000:3000 mongoclient/mongoclient
-                 sh 'docker run --rm  --name mongo mongo:latest mongo'
+               //  sh 'docker run --rm  --name mongo mongo:latest mongo'
+                 sh 'docker version'
              }
         }
       
@@ -117,7 +113,7 @@ podTemplate(label: 'jnlp-slave', // See 1
       
       post {
         always {
-            sh 'docker stop mongo'
+          //  sh 'docker stop mongo'
         }
     }
       
