@@ -1,16 +1,4 @@
-// 执行Helm的方法
-def helmDeploy(Map args) {
-    if(args.init){
-        println "Helm 初始化"
-        sh "helm init --client-only --stable-repo-url ${args.url}"
-    } else if (args.dry_run) {
-        println "尝试 Helm 部署，验证是否能正常部署"
-        sh "helm upgrade --install ${args.name} --namespace ${args.namespace} ${args.values} --set ${args.image},${args.tag} stable/${args.template} --dry-run --debug"
-    } else {
-        println "正式 Helm 部署"
-        sh "helm upgrade --install ${args.name} --namespace ${args.namespace} ${args.values} --set ${args.image},${args.tag} stable/${args.template}"
-    }
-}
+
 
 podTemplate(label: 'jnlp-slave', // See 1
   containers: [
@@ -28,12 +16,7 @@ podTemplate(label: 'jnlp-slave', // See 1
       command: 'cat',
       ttyEnabled: true
     ),
-       containerTemplate(
-      name: 'mongoclient',
-      image: 'mongoclient/mongoclient',
-      command: 'cat',
-      ttyEnabled: true
-    ),
+ 
        containerTemplate(
       name: 'maven',
       image: 'maven:3.6.3-jdk-8',
@@ -50,8 +33,6 @@ podTemplate(label: 'jnlp-slave', // See 1
 )
 {
   node ('jnlp-slave') {
-
-    
    
       stage('Maven Stage'){
           git 'https://github.com/jaszhou/Watson.git'
@@ -68,15 +49,7 @@ podTemplate(label: 'jnlp-slave', // See 1
             }
         }
         
-         stage('Mongo Stage'){
-          //git 'https://github.com/jaszhou/Watson.git'
-             container('docker') {
-              // docker run -d -p 3000:3000 mongoclient/mongoclient
-               //  sh 'docker run --rm  --name mongo mongo:latest mongo'
-                 sh 'docker version'
-             }
-        }
-      
+    
         stage('Build Docker image') {
       
          git 'https://github.com/jaszhou/liberty.git'
@@ -104,19 +77,7 @@ podTemplate(label: 'jnlp-slave', // See 1
          }
     }
     
-            stage('Deploy') {
-                echo "6. Deploy Stage"
-                //sh 'kubectl apply -f k8s.yaml'
-                sh 'ls -l'
-               // sh 'which kubectl'
-            }
-      
-      post {
-        always {
-          //  sh 'docker stop mongo'
-        }
-    }
-      
+
         
   }
 }
