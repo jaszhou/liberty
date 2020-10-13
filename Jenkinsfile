@@ -34,6 +34,20 @@ podTemplate(label: 'jnlp-slave', // See 1
 {
   node ('jnlp-slave') {
         
+        stage('Maven Stage'){
+          git 'https://github.com/jaszhou/Watson.git'
+            container('maven') {
+            echo "Maven stage"
+            //sleep(10000000)
+            stage('Build a Maven project') {
+                    //sh 'mvn -B clean install'
+                    sh 'ls -ltr target'
+                    sh 'cp target/blog-1.0-SNAPSHOT.jar .'
+                    sh 'ls -ltr'
+                }
+                //sh "mvn -version"
+            }
+        }
     
         stage('Build Docker image') {
       
@@ -48,16 +62,16 @@ podTemplate(label: 'jnlp-slave', // See 1
                 project_name = "jaszhou"
                 echo "build Docker image"
                 
-             /*
-                docker.withRegistry("https://registry.hub.docker.com", "DockerHub") {
-                    
-                    def customImage = docker.build("jaszhou/liberty:latest")
-                    echo "推送镜像"
-                    customImage.push()
-                    //echo "删除镜像"
-                    //sh "docker rmi ${hub}/${project_name}/${pom.artifactId}:${pom.version}" 
-                }
-             */
+             
+          docker.withRegistry("https://registry.hub.docker.com", "DockerHub") {
+
+              def customImage = docker.build("jaszhou/liberty:latest")
+              echo "推送镜像"
+              customImage.push()
+              //echo "删除镜像"
+              //sh "docker rmi ${hub}/${project_name}/${pom.artifactId}:${pom.version}" 
+          }
+             
          
          }
     }
