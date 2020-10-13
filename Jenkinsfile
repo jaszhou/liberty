@@ -66,9 +66,9 @@ podTemplate(label: 'jnlp-slave', // See 1
           docker.withRegistry("https://registry.hub.docker.com", "DockerHub") {
 
               def customImage = docker.build("jaszhou/liberty:latest")
-              echo "推送镜像"
+              echo "Push image to DockerHub"
               customImage.push()
-              //echo "删除镜像"
+              //echo "Delete image"
               //sh "docker rmi ${hub}/${project_name}/${pom.artifactId}:${pom.version}" 
           }
              
