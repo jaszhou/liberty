@@ -23,13 +23,13 @@ hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.soc
       container('maven') {
         echo "Maven stage"
         //sleep(10000000)
-        stage('Build a Maven project') {
-          //sh 'mvn -B clean install'
-          sh 'ls -ltr target'
-          sh 'cp target/blog-1.0-SNAPSHOT.jar .'
-          sh 'ls -ltr'
-        }
-        //sh "mvn -version"
+        // stage('Build a Maven project') {
+        //   //sh 'mvn -B clean install'
+        //   sh 'ls -ltr target'
+        //   sh 'cp target/blog-1.0-SNAPSHOT.jar .'
+        //   sh 'ls -ltr'
+        // }
+        sh "mvn -version"
       }
     }
 
