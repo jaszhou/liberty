@@ -29,7 +29,7 @@ hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.soc
         //   sh 'cp target/blog-1.0-SNAPSHOT.jar .'
         //   sh 'ls -ltr'
         // }
-        sh "mvn -version"
+        sh 'mvn -version'
       }
     }
 
