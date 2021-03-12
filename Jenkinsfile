@@ -30,8 +30,11 @@ hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.soc
           sh 'ls -ltr'
         }
         sh 'mvn -version'
+        sh 'pwd'
       }
     }
+
+    
 
     stage('Build Docker image') {
 
@@ -40,6 +43,7 @@ hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.soc
         //sh "docker build -t ${image} ."
         sh 'docker version'
         sh 'ls -ltr'
+        sh 'pwd'
 
         hub = "hub.docker.com"
         // set project name
